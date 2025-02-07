@@ -7,9 +7,7 @@ public class Capstone {
     public static void main(String[] args) {
         String[] userArtists = userMusic();
         userData.UData(userArtists);
-        System.out.println(userArtists[0]);
-        System.out.println(userArtists[1]);
-        System.out.println(userArtists[2]);
+
     }
     public static String[] userMusic() {
         Scanner input = new Scanner(System.in);
