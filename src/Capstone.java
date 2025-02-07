@@ -1,22 +1,24 @@
 // Catherine Neely
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.*;
 
 public class Capstone {
     public static void main(String[] args) {
         String[] userArtists = userMusic();
-
+        userData(userArtists);
+        System.out.println(userArtists[0]);
+        System.out.println(userArtists[1]);
+        System.out.println(userArtists[2]);
     }
     public static String[] userMusic() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Who are your favorite music artists? ");
+        System.out.print("Who are your top three favorite music artists? ");
         String artists = input.nextLine();
+        input.close();
         String[] data = null;
-        while (input.hasNextLine()) {
-            data = artists.split(",");
+        for (int i = 0; i < 3; i++) {
+            data = artists.split(", ");
         }
         return data;
     }
@@ -32,7 +34,6 @@ public class Capstone {
         for (int i = 0; i < userArtists.length; i++) {
             String line = userArtists[i];
             pw.println(line);
-
         }
         pw.flush();
         pw.close();
