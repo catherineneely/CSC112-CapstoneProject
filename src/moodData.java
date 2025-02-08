@@ -1,3 +1,5 @@
+// Catherine Neely
+
 public class moodData {
 }
 // This class is where the program will access the data of user moods in files (while
