@@ -21,7 +21,6 @@ public class Capstone {
         } else {
             System.out.println("Unknown command.");
         }
-
     }
     public static String[] userArtists() {
         Scanner input = new Scanner(System.in);
