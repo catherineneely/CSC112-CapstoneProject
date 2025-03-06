@@ -55,6 +55,7 @@ public class user {
             return false;
         }
     }
+    // saves the user's preferences in their file
     public void saveUserPreferences() {
         try {
             PrintWriter writer = new PrintWriter(username + ".txt");
@@ -67,6 +68,7 @@ public class user {
             System.exit(1);
         }
     }
+    // lets the user enter their preferred artist, genre, and mood
     public void updateUserPreferences() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter your preferred artist: ");
@@ -78,10 +80,3 @@ public class user {
         saveUserPreferences();
     }
 }
-
-
-// I suggest that you use a username to track each user and create one file for each user
-// where they can have their preferences there, which genre, artist, mood so when the user
-// enter their username again you find and read their preferences from their file.
-// The filename could be their username, and you can ask them if they want to update their
-// preferences.
