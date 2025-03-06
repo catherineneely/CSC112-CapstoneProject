@@ -6,16 +6,40 @@ import java.util.*;
 public class Capstone {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Would you like to use genre(g), artists(a), or mood(m) " +
+
+        System.out.print("Enter your username: ");
+        String username = scan.nextLine();
+
+        user user = new user(username);
+
+        boolean returnUser = user.loadUserPreferences();
+        if (returnUser) {
+            System.out.println("You are logged in, " + username + "!");
+            System.out.println("Your current preferences are...");
+            System.out.println("Artist: " + user.getArtist());
+            System.out.println("Genre: " + user.getGenre());
+            System.out.println("Mood: " + user.getMood());
+
+            System.out.print("Would you like to update these preferences (yes or no): ");
+            String option = scan.nextLine();
+            if (option.equalsIgnoreCase("yes")) {
+                user.updateUserPreferences();
+            }
+        } else {
+            System.out.println("Welcome new user, " + username + "!");
+            user.updateUserPreferences();
+        }
+
+        System.out.println("Would you like to use artists(a), genre(g), or mood(m) " +
                 "for music discovery?");
         String MD = scan.nextLine();
-        if (MD.equals("g")) {
-            String[] UG = userGenres();
-            userData.UGenre(UG);
-        } else if (MD.equals("a")) {
+        if (MD.equalsIgnoreCase("a")) {
             String[] UA = userArtists();
             userData.UArtist(UA);
-        } else if (MD.equals("m")) {
+        } else if (MD.equalsIgnoreCase("g")) {
+            String[] UG = userGenres();
+            userData.UGenre(UG);
+        } else if (MD.equalsIgnoreCase("m")) {
             String[] UM = userMoods();
             userData.UMood(UM);
         } else {
