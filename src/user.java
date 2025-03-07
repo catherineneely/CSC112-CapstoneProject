@@ -60,16 +60,19 @@ public class user {
     }
     // saves the user's preferences in their file
     public void saveUserPreferences() {
+        PrintWriter writer = null;
         try {
-            PrintWriter writer = new PrintWriter(username + ".txt");
-            writer.println(artist);
-            writer.println(genre);
-            writer.println(mood);
-            System.out.println("Your preferences have been saved.");
+            writer = new PrintWriter(username + ".txt");
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
             System.exit(1);
         }
+        writer.println(artist);
+        writer.println(genre);
+        writer.println(mood);
+        System.out.println("Your preferences have been saved.");
+        writer.flush();
+        writer.close();
     }
     // lets the user enter their preferred artist, genre, and mood
     public void updateUserPreferences() {
