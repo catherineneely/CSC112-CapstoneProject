@@ -1,6 +1,5 @@
 // Catherine Neely
 
-import java.io.*;
 import java.util.*;
 
 public class Capstone {
