@@ -53,11 +53,11 @@ public class Capstone {
         System.out.print("List the artists: ");
         String artists = input.nextLine();
         input.close();
-        String[] userArtists = null;
+        String[] UA = null;
         for (int i = 0; i < NOA; i++) {
-            userArtists = artists.split(", ");
+            UA = artists.split(", ");
         }
-        return userArtists;
+        return UA;
     }
     public static String[] userGenres() {
         Scanner input = new Scanner(System.in);
@@ -81,10 +81,10 @@ public class Capstone {
         System.out.print("List the moods: ");
         String moods = input.nextLine();
         input.close();
-        String[] UG = null;
+        String[] UM = null;
         for (int i = 0; i < NOM; i++) {
-            UG = moods.split(", ");
+            UM = moods.split(", ");
         }
-        return UG;
+        return UM;
     }
 }
