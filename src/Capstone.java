@@ -30,8 +30,8 @@ public class Capstone {
             user.updateUserPreferences();
         }
 
-        System.out.println("Would you like to use artists(a), genre(g), or mood(m) " +
-                "for music discovery?");
+        System.out.print("Would you like to use artists(a), genre(g), or mood(m) " +
+                "for music discovery? ");
         String MD = scan.nextLine();
         if (MD.equalsIgnoreCase("a")) {
             String[] UA = userArtists();
