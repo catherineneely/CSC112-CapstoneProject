@@ -12,10 +12,7 @@ public class userData {
             System.exit(1);
         }
         PrintWriter pw = new PrintWriter(fileOut);
-        for (int i = 0; i < userArtists.length; i++) {
-            String line = userArtists[i];
-            pw.println(line);
-        }
+        writeToFileRecursive(userArtists, 0, pw);
         pw.flush();
         pw.close();
     }
@@ -28,10 +25,7 @@ public class userData {
             System.exit(1);
         }
         PrintWriter pw = new PrintWriter(fileOut);
-        for (int i = 0; i < userGenres.length; i++) {
-            String line = userGenres[i];
-            pw.println(line);
-        }
+        writeToFileRecursive(userGenres, 0, pw);
         pw.flush();
         pw.close();
     }
@@ -44,11 +38,17 @@ public class userData {
             System.exit(1);
         }
         PrintWriter pw = new PrintWriter(fileOut);
-        for (int i = 0; i < userMoods.length; i++) {
-            String line = userMoods[i];
-            pw.println(line);
-        }
+        writeToFileRecursive(userMoods, 0, pw);
         pw.flush();
         pw.close();
+    }
+
+    // recursive method that writes a file with information depending on user input in the main
+    public static void writeToFileRecursive(String[] data, int index, PrintWriter pw) {
+        if (index == data.length) {
+            return;
+        }
+        pw.println(data[index]);
+        writeToFileRecursive(data, index + 1, pw);
     }
 }
