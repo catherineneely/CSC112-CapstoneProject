@@ -1,5 +1,8 @@
 // Catherine Neely
 
+import java.io.*;
+import java.util.*;
+
 public class songData {
 
     private String songGenre;
@@ -72,5 +75,32 @@ public class songData {
     }
     public void setSongSubgenre(String songSubgenre) {
         this.songSubgenre = songSubgenre;
+    }
+
+    public void songFileRead() {
+        FileInputStream userFile = null;
+        try {
+            userFile = new FileInputStream("src/spotify-data.csv");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            System.exit(1);
+        }
+        Scanner fileScan = new Scanner(userFile);
+        while (fileScan.hasNextLine()) {
+            String line = fileScan.nextLine();
+            String[] songInfo = line.split(",");
+            this.songGenre = songInfo[0];
+            this.songArtist = songInfo[1];
+            try {
+                this.songPopularity = Integer.parseInt(songInfo[2]);
+            } catch (NumberFormatException e) {
+                System.out.println("Song popularity not found.");
+                System.exit(1);
+            }
+            this.songAlbum = songInfo[3];
+            this.songName = songInfo[4];
+            this.songAlbumYear = songInfo[5];
+            this.songSubgenre = songInfo[6];
+        }
     }
 }
