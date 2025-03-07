@@ -40,17 +40,20 @@ public class user {
 
     // sees if the user exists, then loads their preferences
     public boolean loadUserPreferences() {
-        File userFile = new File(username + ".txt");
-        if (!userFile.exists()) {
+        FileInputStream userFile = null;
+        try {
+            userFile = new FileInputStream(username + ".txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
             return false;
         }
+        Scanner fileScanner = new Scanner(userFile);
         try {
-            Scanner fileScanner = new Scanner(userFile);
             this.artist = fileScanner.nextLine();
             this.genre = fileScanner.nextLine();
             this.mood = fileScanner.nextLine();
             return true;
-        } catch (FileNotFoundException e) {
+        } catch (NoSuchElementException e) {
             System.out.println("File not found.");
             return false;
         }
