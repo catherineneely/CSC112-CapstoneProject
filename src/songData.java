@@ -33,6 +33,13 @@ public class songData {
         this.songSubgenre = SSG;
     }
 
+    // toString method
+    @Override
+    public String toString() {
+        return songGenre + "," + songArtist + "," + songPopularity + "," + songAlbum + ","
+                + songName + "," + songAlbumYear + "," + songSubgenre;
+    }
+
     // getter and setter methods
     public String getSongGenre() {
         return songGenre;
@@ -79,6 +86,7 @@ public class songData {
 
     public void songFileRead() {
         FileInputStream userFile = null;
+        ArrayList<songData> objects = new ArrayList<>();
         try {
             userFile = new FileInputStream("src/spotify-data.csv");
         } catch (FileNotFoundException e) {
@@ -88,19 +96,42 @@ public class songData {
         Scanner fileScan = new Scanner(userFile);
         while (fileScan.hasNextLine()) {
             String line = fileScan.nextLine();
+            songData SD = new songData();
             String[] songInfo = line.split(",");
-            this.songGenre = songInfo[0];
-            this.songArtist = songInfo[1];
+            SD.setSongGenre(songInfo[0]);
+            SD.setSongArtist(songInfo[1]);
             try {
-                this.songPopularity = Integer.parseInt(songInfo[2]);
+                SD.setSongPopularity(Integer.parseInt(songInfo[2]));
             } catch (NumberFormatException e) {
                 System.out.println("Song popularity not found.");
-                System.exit(1);
+                continue;
             }
-            this.songAlbum = songInfo[3];
-            this.songName = songInfo[4];
-            this.songAlbumYear = songInfo[5];
-            this.songSubgenre = songInfo[6];
+            SD.setSongAlbum(songInfo[3]);
+            SD.setSongName(songInfo[4]);
+            SD.setSongAlbumYear(songInfo[5]);
+            SD.setSongSubgenre(songInfo[6]);
+            objects.add(SD);
         }
+        fileScan.close();
+        songSort(objects, objects.size());
+    }
+    public void songSort(ArrayList<songData> objects, int n) {
+        songTitlesComparator comparator = new songTitlesComparator();
+        boolean sorted = false;
+        while (!sorted) {
+            sorted = true;
+            for (int i = 0; i < n; i++) {
+                if (comparator.compare(objects.get(i), objects.get(i + 1)) > 0) {
+                    songSwap(objects, i, i + 1);
+                    sorted = false;
+                }
+            }
+            n--;
+        }
+    }
+    public void songSwap(ArrayList<songData> objects, int i, int i1) {
+        songData temp = objects.get(i);
+        objects.set(i, objects.get(i1));
+        objects.set(i1, temp);
     }
 }
