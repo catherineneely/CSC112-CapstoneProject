@@ -103,7 +103,7 @@ public class songData {
             try {
                 SD.setSongPopularity(Integer.parseInt(songInfo[2]));
             } catch (NumberFormatException e) {
-                System.out.println("Song popularity not found.");
+                System.out.println();
                 continue;
             }
             SD.setSongAlbum(songInfo[3]);
@@ -113,7 +113,7 @@ public class songData {
             objects.add(SD);
         }
         fileScan.close();
-        songSort(objects, objects.size());
+        songSort(objects, objects.size() - 1);
         return objects;
     }
     public void songSort(ArrayList<songData> objects, int n) {
