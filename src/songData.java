@@ -84,7 +84,7 @@ public class songData {
         this.songSubgenre = songSubgenre;
     }
 
-    public void songFileRead() {
+    public ArrayList<songData> songFileRead() {
         FileInputStream userFile = null;
         ArrayList<songData> objects = new ArrayList<>();
         try {
@@ -114,6 +114,7 @@ public class songData {
         }
         fileScan.close();
         songSort(objects, objects.size());
+        return objects;
     }
     public void songSort(ArrayList<songData> objects, int n) {
         songTitlesComparator comparator = new songTitlesComparator();
