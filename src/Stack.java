@@ -56,23 +56,30 @@ class LinkedList {
 
 public class Stack {
     Node head = null;
+    private int size = 0;
 
     public Stack(Node node) {
         head = new Node(node.data);
+        size++;
     }
     public Stack () {
         head = null;
+        size = 0;
     }
 
     public void push(Node node) {
         Node newNode = new Node(node.data, head);
-        newNode.next = head;
         head = newNode;
+        size++;
     }
 
     public Node pop() {
+        if (head == null) {
+            return null;
+        }
         Node n = head;
         head = head.next;
+        size--;
         return n;
     }
 
@@ -102,17 +109,7 @@ public class Stack {
         }
     }
 
-    public int stackSize (Stack stack) {
-        int size = 0;
-        Stack tempStack = new Stack();
-        while (!stack.isEmpty()) {
-            Node tempNode = stack.pop();
-            tempStack.push(tempNode);
-            size++;
-        }
-        while (!tempStack.isEmpty()) {
-            stack.push(tempStack.pop());
-        }
+    public int stackSize () {
         return size;
     }
 }
