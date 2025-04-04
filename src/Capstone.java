@@ -35,6 +35,9 @@ public class Capstone {
         if (MD.equalsIgnoreCase("a")) {
             String[] UA = userArtists();
             userData.UArtist(UA);
+            artistData AD = new artistData();
+            String recommArtist = AD.getArtists();
+            System.out.println("Your recommended artist is " + recommArtist + ".");
         } else if (MD.equalsIgnoreCase("g")) {
             String[] UG = userGenres();
             userData.UGenre(UG);
