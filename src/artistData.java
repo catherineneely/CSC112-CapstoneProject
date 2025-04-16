@@ -46,7 +46,7 @@ public class artistData {
         while(fileScanner.hasNextLine()) {
             String line = fileScanner.nextLine();
             for (int p = 0; p < objects.size(); p++) {
-                if (line.equalsIgnoreCase(objects.get(p).getSongArtist())) {
+                if (line.contains(objects.get(p).getSongArtist())) {
                     String genre = objects.get(p).getSongGenre();
                     Node songGenre = new Node(genre);
                     stack.push(songGenre);
