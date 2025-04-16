@@ -10,7 +10,7 @@ public class songData {
     private int songPopularity;
     private String songAlbum;
     private String songName;
-    private String songAlbumYear;
+    private int songAlbumYear;
     private String songSubgenre;
 
     // constructors
@@ -20,10 +20,10 @@ public class songData {
         this.songPopularity = 0;
         this.songAlbum = "";
         this.songName = "";
-        this.songAlbumYear = "";
+        this.songAlbumYear = 0;
         this.songSubgenre = "";
     }
-    public songData(String SG, String SArt, int SP, String SAlb, String SN, String SAY, String SSG) {
+    public songData(String SG, String SArt, int SP, String SAlb, String SN, int SAY, String SSG) {
         this.songGenre = SG;
         this.songArtist = SArt;
         this.songPopularity = SP;
@@ -71,10 +71,10 @@ public class songData {
     public void setSongName(String songName) {
         this.songName = songName;
     }
-    public String getSongAlbumYear() {
+    public int getSongAlbumYear() {
         return songAlbumYear;
     }
-    public void setSongAlbumYear(String songAlbumYear) {
+    public void setSongAlbumYear(int songAlbumYear) {
         this.songAlbumYear = songAlbumYear;
     }
     public String getSongSubgenre() {
@@ -97,7 +97,7 @@ public class songData {
         while (fileScan.hasNextLine()) {
             String line = fileScan.nextLine();
             songData SD = new songData();
-            String[] songInfo = line.split(",");
+            String[] songInfo = line.split("/-/");
             SD.setSongGenre(songInfo[0]);
             SD.setSongArtist(songInfo[1]);
             try {
@@ -108,7 +108,12 @@ public class songData {
             }
             SD.setSongAlbum(songInfo[3]);
             SD.setSongName(songInfo[4]);
-            SD.setSongAlbumYear(songInfo[5]);
+            try {
+                SD.setSongAlbumYear(Integer.parseInt(songInfo[5]));
+            } catch (NumberFormatException e) {
+                System.out.println();
+                continue;
+            }
             SD.setSongSubgenre(songInfo[6]);
             objects.add(SD);
         }
