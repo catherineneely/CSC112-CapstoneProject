@@ -33,8 +33,8 @@ public class songData {
     // toString method
     @Override
     public String toString() {
-        return songGenre + "," + songArtist + "," + songAlbum + ","
-                + songName + "," + songAlbumYear + "," + songSubgenre;
+        return songGenre + "/-/" + songArtist + "/-/" + songAlbum + "/-/"
+                + songName + "/-/" + songAlbumYear + "/-/" + songSubgenre;
     }
 
     // getter and setter methods
@@ -124,5 +124,19 @@ public class songData {
         songData temp = objects.get(i);
         objects.set(i, objects.get(i1));
         objects.set(i1, temp);
+    }
+
+    public void addNewSong(songData SD){
+        FileOutputStream fileOut = null;
+        try {
+            fileOut = new FileOutputStream("spotify-data.txt", true);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            System.exit(1);
+        }
+        PrintWriter pw = new PrintWriter(fileOut);
+        pw.println(SD.toString());
+        pw.flush();
+        pw.close();
     }
 }

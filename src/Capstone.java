@@ -28,6 +28,14 @@ public class Capstone {
             System.out.println("Welcome new user, " + username + "!");
             user.updateUserPreferences();
         }
+        System.out.print("Would you like to add a new song to the database (yes or no): ");
+        String answer = scan.nextLine();
+        if (answer.equalsIgnoreCase("yes")) {
+            System.out.print("List the details of the song: ");
+            //FINISH HERE -- SEE NOTES
+        } else {
+            return;
+        }
 
         System.out.print("Would you like to use artists(a), genre(g), or mood(m) " +
                 "for music discovery? ");
