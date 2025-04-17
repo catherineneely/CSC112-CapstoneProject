@@ -77,7 +77,12 @@ public class artistData {
                     for (int w = 0; w < artistsCount; w++) {
                         curr = curr.next;
                     }
-                    return curr.data;
+                    String pg = curr.data;
+                    if (genreArtists.contains(",")) {
+                        String[] singleArtist = pg.split(",");
+                        pg = singleArtist[0];
+                    }
+                    return pg;
                 }
             }
         } else {
