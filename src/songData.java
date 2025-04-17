@@ -7,7 +7,6 @@ public class songData {
 
     private String songGenre;
     private String songArtist;
-    private int songPopularity;
     private String songAlbum;
     private String songName;
     private int songAlbumYear;
@@ -17,16 +16,14 @@ public class songData {
     public songData() {
         this.songGenre = "";
         this.songArtist = "";
-        this.songPopularity = 0;
         this.songAlbum = "";
         this.songName = "";
         this.songAlbumYear = 0;
         this.songSubgenre = "";
     }
-    public songData(String SG, String SArt, int SP, String SAlb, String SN, int SAY, String SSG) {
+    public songData(String SG, String SArt, String SAlb, String SN, int SAY, String SSG) {
         this.songGenre = SG;
         this.songArtist = SArt;
-        this.songPopularity = SP;
         this.songAlbum = SAlb;
         this.songName = SN;
         this.songAlbumYear = SAY;
@@ -36,7 +33,7 @@ public class songData {
     // toString method
     @Override
     public String toString() {
-        return songGenre + "," + songArtist + "," + songPopularity + "," + songAlbum + ","
+        return songGenre + "," + songArtist + "," + songAlbum + ","
                 + songName + "," + songAlbumYear + "," + songSubgenre;
     }
 
@@ -52,12 +49,6 @@ public class songData {
     }
     public void setSongArtist(String songArtist) {
         this.songArtist = songArtist;
-    }
-    public int getSongPopularity() {
-        return songPopularity;
-    }
-    public void setSongPopularity(int songPopularity) {
-        this.songPopularity = songPopularity;
     }
     public String getSongAlbum() {
         return songAlbum;
@@ -100,21 +91,15 @@ public class songData {
             String[] songInfo = line.split("/-/");
             SD.setSongGenre(songInfo[0]);
             SD.setSongArtist(songInfo[1]);
+            SD.setSongAlbum(songInfo[2]);
+            SD.setSongName(songInfo[3]);
             try {
-                SD.setSongPopularity(Integer.parseInt(songInfo[2]));
+                SD.setSongAlbumYear(Integer.parseInt(songInfo[4]));
             } catch (NumberFormatException e) {
                 System.out.println();
                 continue;
             }
-            SD.setSongAlbum(songInfo[3]);
-            SD.setSongName(songInfo[4]);
-            try {
-                SD.setSongAlbumYear(Integer.parseInt(songInfo[5]));
-            } catch (NumberFormatException e) {
-                System.out.println();
-                continue;
-            }
-            SD.setSongSubgenre(songInfo[6]);
+            SD.setSongSubgenre(songInfo[5]);
             objects.add(SD);
         }
         fileScan.close();
