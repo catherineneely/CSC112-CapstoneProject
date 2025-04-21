@@ -75,7 +75,7 @@ public class songData {
         this.songSubgenre = songSubgenre;
     }
 
-    public ArrayList<songData> songFileRead() {
+    public static ArrayList<songData> songFileRead() {
         FileInputStream userFile = null;
         ArrayList<songData> objects = new ArrayList<>();
         try {
@@ -106,7 +106,7 @@ public class songData {
         songSort(objects, objects.size() - 1);
         return objects;
     }
-    public void songSort(ArrayList<songData> objects, int n) {
+    public static void songSort(ArrayList<songData> objects, int n) {
         songTitlesComparator comparator = new songTitlesComparator();
         boolean sorted = false;
         while (!sorted) {
@@ -120,16 +120,16 @@ public class songData {
             n--;
         }
     }
-    public void songSwap(ArrayList<songData> objects, int i, int i1) {
+    public static void songSwap(ArrayList<songData> objects, int i, int i1) {
         songData temp = objects.get(i);
         objects.set(i, objects.get(i1));
         objects.set(i1, temp);
     }
 
-    public void addNewSong(songData SD){
+    public void addNewSong(songData SD, ArrayList<songData> objects){
         FileOutputStream fileOut = null;
         try {
-            fileOut = new FileOutputStream("spotify-data.txt", true);
+            fileOut = new FileOutputStream("src/spotify-data.csv", true);
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
             System.exit(1);
@@ -138,5 +138,8 @@ public class songData {
         pw.println(SD.toString());
         pw.flush();
         pw.close();
+        objects.add(SD);
+        System.out.println("Song added!");
     }
+
 }
