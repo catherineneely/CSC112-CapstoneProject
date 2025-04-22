@@ -52,6 +52,7 @@ public class genreData {
         for (int j = genres.size()/2; j < genres.size(); j++) {
             System.out.print(genres.get(j) + " | ");
         }
+        System.out.println();
     }
 
     public ArrayList<String> collectSubgenres() {
@@ -82,5 +83,6 @@ public class genreData {
         for (double k = subgenres.size()*((double)2/3); k < subgenres.size(); k++) {
             System.out.print(subgenres.get((int)k) + " | ");
         }
+        System.out.println();
     }
 }

@@ -96,7 +96,6 @@ public class songData {
             try {
                 SD.setSongAlbumYear(Integer.parseInt(songInfo[4]));
             } catch (NumberFormatException e) {
-                System.out.println();
                 continue;
             }
             SD.setSongSubgenre(songInfo[5]);
