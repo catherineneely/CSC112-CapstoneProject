@@ -18,101 +18,123 @@ public class Capstone {
             System.out.println("Artist: " + user.getArtist());
             System.out.println("Genre: " + user.getGenre());
             System.out.println("Mood: " + user.getMood());
-
-            System.out.print("Would you like to update these preferences (yes or no): ");
-            String option = scan.nextLine();
-            if (option.equalsIgnoreCase("yes")) {
-                user.updateUserPreferences();
-            }
         } else {
             System.out.println("Welcome new user, " + username + "!");
             user.updateUserPreferences();
         }
-        ArrayList<songData> objects = songData.songFileRead();
-        // TURN FOLLOWING QUESTIONS INTO ONE ASK WITH LETTERS AS NEXT STEP...
-        System.out.print("Would you like to add a new song to the database (yes or no): ");
-        String answer = scan.nextLine();
-        if (answer.equalsIgnoreCase("yes")) {
-            System.out.print("What is the name of the song? ");
-            String name = scan.nextLine();
-            int nameSearch = binarySearch(objects, 0, objects.size(), name);
-            if (nameSearch == -1) {
-                System.out.print("What is the genre of the song? ");
-                String genre = scan.nextLine();
-                System.out.print("What is the artist of the song? ");
-                String artist = scan.nextLine();
-                System.out.print("What is the album of the song? ");
-                String album = scan.nextLine();
-                System.out.print("What year was the album released? ");
-                int albumReleaseYear = scan.nextInt();
-                String line = scan.nextLine();
-                System.out.print("What is the subgenre of the song? ");
-                String subgenre = scan.nextLine();
-                songData SD = new songData(genre, artist, album, name, albumReleaseYear, subgenre);
-                SD.addNewSong(SD, objects);
-            } else {
-                System.out.println("Sorry, that song already exists in the database.");
-            }
-            //FINISH HERE -- SEE NOTES
-        } else {
-            return;
-        }
 
-        System.out.print("Would you like to use artists(a), genre(g), or mood(m) " +
-                "for music discovery? ");
-        String MD = scan.nextLine();
-        if (MD.equalsIgnoreCase("a")) {
-            String[] UA = userArtists();
-            userData.UArtist(UA);
-            artistData AD = new artistData();
-            String recommArtist = AD.getArtists();
-            System.out.println("Your recommended artist is " + recommArtist + ".");
-        } else if (MD.equalsIgnoreCase("g")) {
-            String[] UG = userGenres();
-            userData.UGenre(UG);
-        } else if (MD.equalsIgnoreCase("m")) {
-            String[] UM = userMoods();
-            userData.UMood(UM);
-        } else {
-            System.out.println("Unknown command.");
+        String option = "";
+        while (!option.equals("e")) {
+            System.out.print("""
+                    
+                    What would you like to do""" + " " + username + "?" + """
+                    
+                    (a) Update User Preferences
+                    (b) Receive Recommendations Based on User Preferences
+                    (c) Music Discovery
+                    (d) Add a New Song to the Database
+                    (e) Exit
+                    
+                    ---→""" + " ");
+            option = scan.nextLine().toLowerCase();
+
+            if (option.equals("a")) {
+                user.updateUserPreferences();
+            } else if (option.equals("b")) {
+                // FILL IN CODE HERE !!!
+            } else if (option.equals("c")) {
+                System.out.print("Would you like to use artists(a), genre(g), or mood(m) " +
+                        "for music discovery? ");
+                String MD = scan.nextLine();
+                if (MD.equalsIgnoreCase("a")) {
+                    String[] UA = userArtists(scan);
+                    userData.UArtist(UA);
+                    artistData AD = new artistData();
+                    String recommArtist = AD.getArtists();
+                    System.out.println("Your recommended artist is " + recommArtist + ".");
+                } else if (MD.equalsIgnoreCase("g")) {
+                    String[] UG = userGenres(scan);
+                    userData.UGenre(UG);
+                } else if (MD.equalsIgnoreCase("m")) {
+                    String[] UM = userMoods(scan);
+                    userData.UMood(UM);
+                } else {
+                    System.out.println("Unknown command.");
+                }
+            } else if (option.equals("d")) {
+                ArrayList<songData> objects = songData.songFileRead();
+                System.out.print("What is the name of the song you would like to add to the database? ");
+                String name = scan.nextLine();
+                int nameSearch = binarySearch(objects, 0, objects.size(), name);
+                if (nameSearch == -1) {
+                    String genre = "";
+                    System.out.print("What is the genre of the song (to see the genre list, enter 'list')? ");
+                    genre = scan.nextLine();
+                    while (genre.equalsIgnoreCase("list")) {
+                        genreData GD = new genreData();
+                        GD.printGenres();
+
+                        System.out.print("What is the genre of the song (to see the genre list, enter 'list')? ");
+                        genre = scan.nextLine();
+                    }
+                    System.out.print("What is the artist of the song? ");
+                    String artist = scan.nextLine();
+                    System.out.print("What is the album of the song? ");
+                    String album = scan.nextLine();
+                    System.out.print("What year was the album released? ");
+                    int albumReleaseYear = Integer.parseInt(scan.nextLine());
+                    String subgenre = "";
+                    System.out.print("What is the subgenre of the song (to see the subgenre list, enter 'list')? ");
+                    subgenre = scan.nextLine();
+                    while (subgenre.equalsIgnoreCase("list")) {
+                        genreData GD = new genreData();
+                        GD.printGenres();
+
+                        System.out.print("What is the subgenre of the song (to see the subgenre list, enter 'list')? ");
+                        genre = scan.nextLine();
+                    }
+                    songData SD = new songData(genre, artist, album, name, albumReleaseYear, subgenre);
+                    SD.addNewSong(SD, objects);
+                } else {
+                    System.out.println("Sorry, that song already exists in the database.");
+                }
+            } else if (option.equals("e")) {
+                System.out.println("Goodbye " + username + "!");
+            } else {
+                System.out.println("Unknown option. Please try again.");
+            }
         }
     }
-    public static String[] userArtists() {
-        Scanner input = new Scanner(System.in);
+    public static String[] userArtists(Scanner scan) {
         System.out.print("How many artists would you like to use for the recommendation? ");
-        int NOA = input.nextInt();
-        String space = input.nextLine();
+        int NOA = scan.nextInt();
+        String space = scan.nextLine();
         System.out.print("List the artists: ");
-        String artists = input.nextLine();
-        input.close();
+        String artists = scan.nextLine();
         String[] UA = null;
         for (int i = 0; i < NOA; i++) {
             UA = artists.split(", ");
         }
         return UA;
     }
-    public static String[] userGenres() {
-        Scanner input = new Scanner(System.in);
+    public static String[] userGenres(Scanner scan) {
         System.out.print("How many genres would you like to use for the recommendation? ");
-        int NOG = input.nextInt();
-        String space = input.nextLine();
+        int NOG = scan.nextInt();
+        String space = scan.nextLine();
         System.out.print("List the genres: ");
-        String genres = input.nextLine();
-        input.close();
+        String genres = scan.nextLine();
         String[] UG = null;
         for (int i = 0; i < NOG; i++) {
             UG = genres.split(", ");
         }
         return UG;
     }
-    public static String[] userMoods() {
-        Scanner input = new Scanner(System.in);
+    public static String[] userMoods(Scanner scan) {
         System.out.print("How many moods would you like to use for the recommendation? ");
-        int NOM = input.nextInt();
-        String space = input.nextLine();
+        int NOM = scan.nextInt();
+        String space = scan.nextLine();
         System.out.print("List the moods: ");
-        String moods = input.nextLine();
-        input.close();
+        String moods = scan.nextLine();
         String[] UM = null;
         for (int i = 0; i < NOM; i++) {
             UM = moods.split(", ");
