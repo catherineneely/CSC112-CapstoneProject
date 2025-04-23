@@ -85,10 +85,8 @@ public class artistData {
                     return pg;
                 }
             }
-        } else {
-            System.out.println("Stack is empty.");
-        }
-        return "No artist recommendation available.";
+        } else {}
+        return "No artist recommendation available";
     }
 
 }

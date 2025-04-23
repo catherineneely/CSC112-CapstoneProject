@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class genreData {
-    String genreName;
-    String subgenre;
+    private String genreName;
+    private String subgenre;
 
     public genreData() {
         genreName = "";
@@ -136,9 +136,7 @@ public class genreData {
                     return curr.data;
                 }
             }
-        } else {
-            System.out.println("Stack is empty.");
-        }
-        return "No genre recommendation available.";
+        } else {}
+        return "No genre recommendation available";
     }
 }
