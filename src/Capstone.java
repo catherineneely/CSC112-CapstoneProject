@@ -52,16 +52,31 @@ public class Capstone {
                     userData.UArtist(UA);
                     artistData AD = new artistData();
                     String recommArtist = AD.getArtists();
-                    System.out.println("Your recommended artist is " + recommArtist + ".");
+                    if (recommArtist.equals("No artist recommendation available")) {
+                        System.out.println(recommArtist + ".");
+                    } else {
+                        System.out.println("Your recommended artist is " + recommArtist + ".");
+                    }
                 } else if (MD.equalsIgnoreCase("g")) {
                     String[] UG = userGenres(scan);
                     userData.UGenre(UG);
                     genreData GD = new genreData();
                     String recommGenre = GD.getGenres();
-                    System.out.println("Your recommended genre is " + recommGenre + ".");
+                    if (recommGenre.equals("No genre recommendation available")) {
+                        System.out.println(recommGenre + ".");
+                    } else {
+                        System.out.println("Your recommended genre is " + recommGenre + ".");
+                    }
                 } else if (MD.equalsIgnoreCase("m")) {
                     String[] UM = userMoods(scan);
                     userData.UMood(UM);
+                    moodData MoD = new moodData();
+                    String recommSongForMood = MoD.getMoodRec();
+                    if (recommSongForMood.equals("No mood recommendation available")) {
+                        System.out.println(recommSongForMood + ".");
+                    } else {
+                        System.out.println("Your recommended song for a " + UM[0] + " mood is " + recommSongForMood + ".");
+                    }
                 } else {
                     System.out.println("Unknown command.");
                 }
@@ -94,7 +109,7 @@ public class Capstone {
                     subgenre = scan.nextLine();
                     while (subgenre.equalsIgnoreCase("list")) {
                         genreData GD = new genreData();
-                        GD.printGenres();
+                        GD.printSubgenres();
 
                         System.out.print("What is the subgenre of the song (to see the subgenre list, enter 'list')? ");
                         genre = scan.nextLine();
@@ -140,14 +155,11 @@ public class Capstone {
         return UG;
     }
     public static String[] userMoods(Scanner scan) {
-        System.out.print("How many moods would you like to use for the recommendation? ");
-        int NOM = Integer.parseInt(scan.nextLine());
-        System.out.print("List the moods: ");
+        moodData MD = new moodData();
+        MD.printMoods();
+        System.out.print("List the mood you like to use for the recommendation: ");
         String moods = scan.nextLine();
-        String[] UM = null;
-        for (int i = 0; i < NOM; i++) {
-            UM = moods.split(", ");
-        }
+        String[] UM = {moods};
         return UM;
     }
     public static int binarySearch(ArrayList<songData> songList, int begin, int end, String target) {
