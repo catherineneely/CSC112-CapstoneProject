@@ -24,7 +24,7 @@ public class Capstone {
         }
 
         String option = "";
-        while (!option.equals("e")) {
+        while (!option.equals("f")) {
             System.out.print("""
                     
                     What would you like to do""" + " " + username + "?" + """
@@ -32,8 +32,9 @@ public class Capstone {
                     (a) Update User Preferences
                     (b) Receive Recommendations Based on User Preferences
                     (c) Music Discovery
-                    (d) Add a New Song to the Database
-                    (e) Exit
+                    (d) Playlist Generator
+                    (e) Add a New Song to the Database
+                    (f) Exit
                     
                     ---→""" + " ");
             option = scan.nextLine().toLowerCase();
@@ -55,6 +56,9 @@ public class Capstone {
                 } else if (MD.equalsIgnoreCase("g")) {
                     String[] UG = userGenres(scan);
                     userData.UGenre(UG);
+                    genreData GD = new genreData();
+                    String recommGenre = GD.getGenres();
+                    System.out.println("Your recommended genre is " + recommGenre + ".");
                 } else if (MD.equalsIgnoreCase("m")) {
                     String[] UM = userMoods(scan);
                     userData.UMood(UM);
@@ -62,6 +66,8 @@ public class Capstone {
                     System.out.println("Unknown command.");
                 }
             } else if (option.equals("d")) {
+                // FILL IN CODE HERE !!!
+            } else if (option.equals("e")) {
                 ArrayList<songData> objects = songData.songFileRead();
                 System.out.print("What is the name of the song you would like to add to the database? ");
                 String name = scan.nextLine();
@@ -98,7 +104,7 @@ public class Capstone {
                 } else {
                     System.out.println("Sorry, that song already exists in the database.");
                 }
-            } else if (option.equals("e")) {
+            } else if (option.equals("f")) {
                 System.out.println("Goodbye " + username + "!");
             } else {
                 System.out.println("Unknown option. Please try again.");
@@ -107,8 +113,7 @@ public class Capstone {
     }
     public static String[] userArtists(Scanner scan) {
         System.out.print("How many artists would you like to use for the recommendation? ");
-        int NOA = scan.nextInt();
-        String space = scan.nextLine();
+        int NOA = Integer.parseInt(scan.nextLine());
         System.out.print("List the artists: ");
         String artists = scan.nextLine();
         String[] UA = null;
@@ -119,20 +124,24 @@ public class Capstone {
     }
     public static String[] userGenres(Scanner scan) {
         System.out.print("How many genres would you like to use for the recommendation? ");
-        int NOG = scan.nextInt();
-        String space = scan.nextLine();
-        System.out.print("List the genres: ");
-        String genres = scan.nextLine();
+        int NOG = Integer.parseInt(scan.nextLine());
+        System.out.print("List the genres (to see the genre list, enter 'list'): ");
+        String genreList = scan.nextLine();
+        while (genreList.equalsIgnoreCase("list")) {
+            genreData GD = new genreData();
+            GD.printGenres();
+            System.out.print("List the genres (to see the genre list, enter 'list'): ");
+            genreList = scan.nextLine();
+        }
         String[] UG = null;
         for (int i = 0; i < NOG; i++) {
-            UG = genres.split(", ");
+            UG = genreList.split(", ");
         }
         return UG;
     }
     public static String[] userMoods(Scanner scan) {
         System.out.print("How many moods would you like to use for the recommendation? ");
-        int NOM = scan.nextInt();
-        String space = scan.nextLine();
+        int NOM = Integer.parseInt(scan.nextLine());
         System.out.print("List the moods: ");
         String moods = scan.nextLine();
         String[] UM = null;

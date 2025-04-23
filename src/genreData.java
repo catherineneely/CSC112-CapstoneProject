@@ -1,5 +1,7 @@
 // Catherine Neely
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class genreData {
@@ -37,7 +39,6 @@ public class genreData {
 
             if (!genreList.contains(newGenre)) {
                 genreList.add(newGenre);
-                Node songGenre = new Node(newGenre);
             }
         }
         return genreList;
@@ -64,7 +65,6 @@ public class genreData {
 
             if (!subgenreList.contains(newSubgenre)) {
                 subgenreList.add(newSubgenre);
-                Node songGenre = new Node(newSubgenre);
             }
         }
         return subgenreList;
@@ -84,5 +84,61 @@ public class genreData {
             System.out.print(subgenres.get((int)k) + " | ");
         }
         System.out.println();
+    }
+    public String getGenres() {
+        FileInputStream file = null;
+        try {
+            file = new FileInputStream("userGenreData.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            System.exit(1);
+        }
+        songData songData = new songData();
+        ArrayList<songData> objects = songData.songFileRead();
+        Stack stack = new Stack();
+        Scanner fileScanner = new Scanner(file);
+        int i = 0;
+
+        while(fileScanner.hasNextLine()) {
+            String line = fileScanner.nextLine();
+            for (int p = 0; p < objects.size(); p++) {
+                if (line.contains(objects.get(p).getSongGenre())) {
+                    String genre = objects.get(p).getSongSubgenre();
+                    Node songSubgenre = new Node(genre);
+                    stack.push(songSubgenre);
+                }
+            }
+            i++;
+        }
+
+        Random rand = new Random();
+        int ss = stack.stackSize();
+        int popCount;
+        if (ss > 0) {
+            popCount = rand.nextInt(ss) + 1;
+            for (int j = 0; j < popCount; j++) {
+                Node poppedNode = stack.pop();
+                String poppedSubgenre = poppedNode.data;
+
+                LinkedList genreSubgenres = new LinkedList();
+                for (int k = 0; k < objects.size(); k++) {
+                    songData data = objects.get(k);
+                    if (data.getSongSubgenre().equalsIgnoreCase(poppedSubgenre)) {
+                        genreSubgenres.add(data.getSongGenre() + " " + data.getSongSubgenre());
+                    }
+                }
+                if (genreSubgenres.size() > 0) {
+                    int artistsCount = rand.nextInt(genreSubgenres.size());
+                    Node curr = genreSubgenres.head;
+                    for (int w = 0; w < artistsCount; w++) {
+                        curr = curr.next;
+                    }
+                    return curr.data;
+                }
+            }
+        } else {
+            System.out.println("Stack is empty.");
+        }
+        return "No genre recommendation available.";
     }
 }
