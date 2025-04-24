@@ -98,7 +98,7 @@ public class Stack {
     }
 
     public void printStack(Node head) {
-        Stack tmp = null;
+        Stack tmp = new Stack();
         while(!isEmpty()) {
             Node n = pop();
             System.out.print(n.data + " ");
