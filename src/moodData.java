@@ -1,7 +1,5 @@
 // Catherine Neely
 
-// FIX BUG IN THIS CLASS !!
-
 import java.io.*;
 import java.util.*;
 
@@ -24,7 +22,7 @@ public class moodData {
 
     public void printMoods(){
         System.out.println("The mood options are...\nmelancholy | bold | serene | euphoric | " +
-                "adventurous | romantic | nostalgic | confident | cinematic | upbeat | " +
+                "adventurous | romantic | reflective | confident | cinematic | upbeat | " +
                 "restless | hopeful | grounded");
     }
 
@@ -40,143 +38,156 @@ public class moodData {
         ArrayList<songData> objects = songData.songFileRead();
         Stack stack = new Stack();
         Scanner fileScanner = new Scanner(fileRead);
-        String line = fileScanner.nextLine();
-        int p = 0;
-        while (p < objects.size()) {
+        while (fileScanner.hasNextLine()) {
+            String line = fileScanner.nextLine();
+            line = line.trim();
             if (line.equals("melancholy")) {
-                if (objects.get(p).getSongGenre().equals("blues") ||
-                        objects.get(p).getSongGenre().equals("jazz") ||
-                        objects.get(p).getSongGenre().equals("folk") ||
-                        objects.get(p).getSongGenre().equals("soul")) {
-                    String mR = objects.get(p).getSongArtist();
-                    Node moodArtist = new Node(mR);
-                    stack.push(moodArtist);
-                    p++;
+                    for (int p = 0; p < objects.size(); p++) {
+                        if (objects.get(p).getSongGenre().equalsIgnoreCase("blues") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("jazz") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("folk") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("soul")) {
+                            String mR = objects.get(p).getSongArtist();
+                            Node moodArtist = new Node(mR);
+                            stack.push(moodArtist);
+                        }
+                    }
+                } else if (line.equals("bold")) {
+                    for (int p = 0; p < objects.size(); p++) {
+                        if (objects.get(p).getSongGenre().equalsIgnoreCase("punk") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("hip-hop") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("metal") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("rock")) {
+                            String mR = objects.get(p).getSongArtist();
+                            Node moodArtist = new Node(mR);
+                            stack.push(moodArtist);
+                        }
+                    }
+                } else if (line.equals("serene")) {
+                    for (int p = 0; p < objects.size(); p++) {
+                        if (objects.get(p).getSongGenre().equalsIgnoreCase("ambient") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("classical") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("lofi") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("indian")) {
+                            String mR = objects.get(p).getSongArtist();
+                            Node moodArtist = new Node(mR);
+                            stack.push(moodArtist);
+                        }
+                    }
+                } else if (line.equals("euphoric")) {
+                    for (int p = 0; p < objects.size(); p++) {
+                        if (objects.get(p).getSongGenre().equalsIgnoreCase("afrobeats") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("latin") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("pop") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("brazilian")) {
+                            String mR = objects.get(p).getSongArtist();
+                            Node moodArtist = new Node(mR);
+                            stack.push(moodArtist);
+                        }
+                    }
+                } else if (line.equals("adventurous")) {
+                    for (int p = 0; p < objects.size(); p++) {
+                        if (objects.get(p).getSongGenre().equalsIgnoreCase("world") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("korean") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("turkish") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("reggae")) {
+                            String mR = objects.get(p).getSongArtist();
+                            Node moodArtist = new Node(mR);
+                            stack.push(moodArtist);
+                        }
+                    }
+                } else if (line.equals("romantic")) {
+                    for (int p = 0; p < objects.size(); p++) {
+                        if (objects.get(p).getSongGenre().equalsIgnoreCase("r&b") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("soul") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("classical") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("jazz")) {
+                            String mR = objects.get(p).getSongArtist();
+                            Node moodArtist = new Node(mR);
+                            stack.push(moodArtist);
+                        }
+                    }
+                } else if (line.equals("reflective")) {
+                    for (int p = 0; p < objects.size(); p++) {
+                        if (objects.get(p).getSongGenre().equalsIgnoreCase("country") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("folk") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("indie") ||
+                                objects.get(p).getSongGenre().equalsIgnoreCase("pop")) {
+                            String mR = objects.get(p).getSongArtist();
+                            Node moodArtist = new Node(mR);
+                            stack.push(moodArtist);
+                        }
+                    }
+                } else if (line.equals("confident")) {
+                    for (int p = 0; p < objects.size(); p++) {
+                        if (objects.get(p).getSongGenre().equals("hip-hop") ||
+                                objects.get(p).getSongGenre().equals("k-pop") ||
+                                objects.get(p).getSongGenre().equals("electronic") ||
+                                objects.get(p).getSongGenre().equals("r&b")) {
+                            String mR = objects.get(p).getSongArtist();
+                            Node moodArtist = new Node(mR);
+                            stack.push(moodArtist);
+                        }
+                    }
+                } else if (line.equals("cinematic")) {
+                    for (int p = 0; p < objects.size(); p++) {
+                        if (objects.get(p).getSongGenre().equals("ambient") ||
+                                objects.get(p).getSongGenre().equals("arabic") ||
+                                objects.get(p).getSongGenre().equals("electronic") ||
+                                objects.get(p).getSongGenre().equals("classical")) {
+                            String mR = objects.get(p).getSongArtist();
+                            Node moodArtist = new Node(mR);
+                            stack.push(moodArtist);
+                        }
+                    }
+                } else if (line.equals("upbeat")) {
+                    for (int p = 0; p < objects.size(); p++) {
+                        if (objects.get(p).getSongGenre().equals("j-pop") ||
+                                objects.get(p).getSongGenre().equals("gaming") ||
+                                objects.get(p).getSongGenre().equals("pop") ||
+                                objects.get(p).getSongGenre().equals("brazilian")) {
+                            String mR = objects.get(p).getSongArtist();
+                            Node moodArtist = new Node(mR);
+                            stack.push(moodArtist);
+                        }
+                    }
+                } else if (line.equals("restless")) {
+                    for (int p = 0; p < objects.size(); p++) {
+                        if (objects.get(p).getSongGenre().equals("electronic") ||
+                                objects.get(p).getSongGenre().equals("indie") ||
+                                objects.get(p).getSongGenre().equals("lofi") ||
+                                objects.get(p).getSongGenre().equals("rock")) {
+                            String mR = objects.get(p).getSongArtist();
+                            Node moodArtist = new Node(mR);
+                            stack.push(moodArtist);
+                        }
+                    }
+                } else if (line.equals("hopeful")) {
+                    for (int p = 0; p < objects.size(); p++) {
+                        if (objects.get(p).getSongGenre().equals("pop") ||
+                                objects.get(p).getSongGenre().equals("soul") ||
+                                objects.get(p).getSongGenre().equals("latin") ||
+                                objects.get(p).getSongGenre().equals("classical")) {
+                            String mR = objects.get(p).getSongArtist();
+                            Node moodArtist = new Node(mR);
+                            stack.push(moodArtist);
+                        }
+                    }
+                } else if (line.equals("grounded")) {
+                    for (int p = 0; p < objects.size(); p++) {
+                        if (objects.get(p).getSongGenre().equals("folk") ||
+                                objects.get(p).getSongGenre().equals("country") ||
+                                objects.get(p).getSongGenre().equals("indian") ||
+                                objects.get(p).getSongGenre().equals("world")) {
+                            String mR = objects.get(p).getSongArtist();
+                            Node moodArtist = new Node(mR);
+                            stack.push(moodArtist);
+                        }
+                    }
+                } else {
+                    System.out.println("That mood option is not supported.");
+                    break;
                 }
-            } else if (line.equals("bold")) {
-                if (objects.get(p).getSongGenre().equals("punk") ||
-                        objects.get(p).getSongGenre().equals("hip-hop") ||
-                        objects.get(p).getSongGenre().equals("metal") ||
-                        objects.get(p).getSongGenre().equals("rock")) {
-                    String mR = objects.get(p).getSongArtist();
-                    Node moodArtist = new Node(mR);
-                    stack.push(moodArtist);
-                    p++;
-                }
-            } else if (line.equals("serene")) {
-                if (objects.get(p).getSongGenre().equals("ambient") ||
-                        objects.get(p).getSongGenre().equals("classical") ||
-                        objects.get(p).getSongGenre().equals("lofi") ||
-                        objects.get(p).getSongGenre().equals("indian")) {
-                    String mR = objects.get(p).getSongArtist();
-                    Node moodArtist = new Node(mR);
-                    stack.push(moodArtist);
-                    p++;
-                }
-            } else if (line.equals("euphoric")) {
-                if (objects.get(p).getSongGenre().equals("afrobeats") ||
-                        objects.get(p).getSongGenre().equals("latin") ||
-                        objects.get(p).getSongGenre().equals("pop") ||
-                        objects.get(p).getSongGenre().equals("brazilian")) {
-                    String mR = objects.get(p).getSongArtist();
-                    Node moodArtist = new Node(mR);
-                    stack.push(moodArtist);
-                    p++;
-                }
-            } else if (line.equals("adventurous")) {
-                if (objects.get(p).getSongGenre().equals("world") ||
-                        objects.get(p).getSongGenre().equals("korean") ||
-                        objects.get(p).getSongGenre().equals("turkish") ||
-                        objects.get(p).getSongGenre().equals("reggae")) {
-                    String mR = objects.get(p).getSongArtist();
-                    Node moodArtist = new Node(mR);
-                    stack.push(moodArtist);
-                    p++;
-                }
-            } else if (line.equals("romantic")) {
-                if (objects.get(p).getSongGenre().equals("r&b") ||
-                        objects.get(p).getSongGenre().equals("soul") ||
-                        objects.get(p).getSongGenre().equals("classical") ||
-                        objects.get(p).getSongGenre().equals("jazz")) {
-                    String mR = objects.get(p).getSongArtist();
-                    Node moodArtist = new Node(mR);
-                    stack.push(moodArtist);
-                    p++;
-                }
-            } else if (line.equals("nostalgic")) {
-                if (objects.get(p).getSongGenre().equals("country") ||
-                        objects.get(p).getSongGenre().equals("folk") ||
-                        objects.get(p).getSongGenre().equals("indie") ||
-                        objects.get(p).getSongGenre().equals("pop")) {
-                    String mR = objects.get(p).getSongArtist();
-                    Node moodArtist = new Node(mR);
-                    stack.push(moodArtist);
-                    p++;
-                }
-            } else if (line.equals("confident")) {
-                if (objects.get(p).getSongGenre().equals("hip-hop") ||
-                        objects.get(p).getSongGenre().equals("k-pop") ||
-                        objects.get(p).getSongGenre().equals("electronic") ||
-                        objects.get(p).getSongGenre().equals("r&b")) {
-                    String mR = objects.get(p).getSongArtist();
-                    Node moodArtist = new Node(mR);
-                    stack.push(moodArtist);
-                    p++;
-                }
-            } else if (line.equals("cinematic")) {
-                if (objects.get(p).getSongGenre().equals("ambient") ||
-                        objects.get(p).getSongGenre().equals("arabic") ||
-                        objects.get(p).getSongGenre().equals("electronic") ||
-                        objects.get(p).getSongGenre().equals("classical")) {
-                    String mR = objects.get(p).getSongArtist();
-                    Node moodArtist = new Node(mR);
-                    stack.push(moodArtist);
-                    p++;
-                }
-            } else if (line.equals("upbeat")) {
-                if (objects.get(p).getSongGenre().equals("j-pop") ||
-                        objects.get(p).getSongGenre().equals("gaming") ||
-                        objects.get(p).getSongGenre().equals("pop") ||
-                        objects.get(p).getSongGenre().equals("brazilian")) {
-                    String mR = objects.get(p).getSongArtist();
-                    Node moodArtist = new Node(mR);
-                    stack.push(moodArtist);
-                    p++;
-                }
-            } else if (line.equals("restless")) {
-                if (objects.get(p).getSongGenre().equals("electronic") ||
-                        objects.get(p).getSongGenre().equals("indie") ||
-                        objects.get(p).getSongGenre().equals("lofi") ||
-                        objects.get(p).getSongGenre().equals("rock")) {
-                    String mR = objects.get(p).getSongArtist();
-                    Node moodArtist = new Node(mR);
-                    stack.push(moodArtist);
-                    p++;
-                }
-            } else if (line.equals("hopeful")) {
-                if (objects.get(p).getSongGenre().equals("pop") ||
-                        objects.get(p).getSongGenre().equals("soul") ||
-                        objects.get(p).getSongGenre().equals("latin") ||
-                        objects.get(p).getSongGenre().equals("classical")) {
-                    String mR = objects.get(p).getSongArtist();
-                    Node moodArtist = new Node(mR);
-                    stack.push(moodArtist);
-                    p++;
-                }
-            } else if (line.equals("grounded")) {
-                if (objects.get(p).getSongGenre().equals("folk") ||
-                        objects.get(p).getSongGenre().equals("country") ||
-                        objects.get(p).getSongGenre().equals("indian") ||
-                        objects.get(p).getSongGenre().equals("world")) {
-                    String mR = objects.get(p).getSongArtist();
-                    Node moodArtist = new Node(mR);
-                    stack.push(moodArtist);
-                    p++;
-                }
-            } else {
-                System.out.println("That mood option is not supported.");
-                p = objects.size();
-            }
         }
 
         Random rand = new Random();
@@ -184,23 +195,26 @@ public class moodData {
         int popCount;
         if (ss > 0) {
             popCount = rand.nextInt(ss) + 1;
+            Node poppedNode;
+            String poppedMA = "";
             for (int j = 0; j < popCount; j++) {
-                Node poppedNode = stack.pop();
-                String poppedMA = poppedNode.data;
-
-                LinkedList moodListRec = new LinkedList();
-                for (int k = 0; k < objects.size(); k++) {
-                    songData data = objects.get(k);
-                    if (data.getSongArtist().equalsIgnoreCase(poppedMA)) {
-                        moodListRec.add(data.getSongName() + " by " + data.getSongArtist());
-                    }
+                poppedNode = stack.pop();
+                poppedMA = poppedNode.data;
+            }
+            LinkedList moodListRec = new LinkedList();
+            for (int k = 0; k < objects.size(); k++) {
+                songData data = objects.get(k);
+                if (data.getSongArtist().equalsIgnoreCase(poppedMA)) {
+                    moodListRec.add(data.getSongName() + " by " + data.getSongArtist());
                 }
-                if (moodListRec.size() > 0) {
-                    int artistsCount = rand.nextInt(moodListRec.size());
-                    Node curr = moodListRec.head;
-                    for (int w = 0; w < artistsCount; w++) {
-                        curr = curr.next;
-                    }
+            }
+            if (moodListRec.size() > 0) {
+                int artistsCount = rand.nextInt(moodListRec.size());
+                Node curr = moodListRec.head;
+                for (int w = 0; w < artistsCount ; w++) {
+                    curr = curr.next;
+                }
+                if (curr != null) {
                     return curr.data;
                 }
             }
