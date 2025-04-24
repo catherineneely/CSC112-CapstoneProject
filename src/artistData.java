@@ -30,6 +30,8 @@ public class artistData {
     }
 
     public String getArtists() {
+        ArrayList<String> userArtists = new ArrayList<>();
+
         FileInputStream fileIn = null;
         try {
             fileIn = new FileInputStream("userArtistData.txt");
@@ -50,6 +52,7 @@ public class artistData {
                     String genre = objects.get(p).getSongGenre();
                     Node songGenre = new Node(genre);
                     stack.push(songGenre);
+                    userArtists.add(objects.get(p).getSongArtist());
                 }
             }
             i++;
@@ -78,15 +81,18 @@ public class artistData {
                         curr = curr.next;
                     }
                     String pg = curr.data;
-                    if (genreArtists.contains(",")) {
-                        String[] singleArtist = pg.split(",");
-                        pg = singleArtist[0];
+                    if (pg.contains(", ")) {
+                        String[] singleArtist = pg.split(", ");
+                        pg = singleArtist[0].trim();
                     }
-                    return pg;
+                    if (!userArtists.contains(pg)) {
+                        return pg;
+                    } else {
+                        continue;
+                    }
                 }
             }
         } else {}
         return "No artist recommendation available";
     }
-
 }
