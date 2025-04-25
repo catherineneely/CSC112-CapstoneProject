@@ -86,7 +86,8 @@ public class Capstone {
                 ArrayList<songData> objects = songData.songFileRead();
                 System.out.print("What is the name of the song you would like to add to the database? ");
                 String name = scan.nextLine();
-                int nameSearch = binarySearch(objects, 0, objects.size(), name);
+                objects.sort(new songTitlesComparator());
+                int nameSearch = linearSearch(objects, 0, objects.size()-1, name);
                 if (nameSearch == -1) {
                     String genre = "";
                     System.out.print("What is the genre of the song (to see the genre list, enter 'list')? ");
@@ -112,7 +113,7 @@ public class Capstone {
                         GD.printSubgenres();
 
                         System.out.print("What is the subgenre of the song (to see the subgenre list, enter 'list')? ");
-                        genre = scan.nextLine();
+                        subgenre = scan.nextLine();
                     }
                     songData SD = new songData(genre, artist, album, name, albumReleaseYear, subgenre);
                     SD.addNewSong(SD, objects);
@@ -162,19 +163,16 @@ public class Capstone {
         String[] UM = {moods};
         return UM;
     }
-    public static int binarySearch(ArrayList<songData> songList, int begin, int end, String target) {
+    public static int linearSearch(ArrayList<songData> Strings, int begin, int end, String target) {
         if (begin > end) {
             return -1;
         }
-        int mid = (begin + end) / 2;
-        String midSong = songList.get(mid).getSongName();
-        int comparison = target.compareTo(midSong);
-        if (comparison == 0) {
-            return mid;
-        } else if (comparison < 0) {
-            return binarySearch(songList, begin, mid - 1, target);
-        } else {
-            return binarySearch(songList, mid + 1, end, target);
+        if (Strings.get(begin).getSongName().equals(target)) {
+            return begin;
         }
+        if (Strings.get(end).getSongName().equals(target)) {
+            return end;
+        }
+        return linearSearch(Strings, begin + 1, end - 1, target);
     }
 }
