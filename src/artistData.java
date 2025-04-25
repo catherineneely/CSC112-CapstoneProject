@@ -43,7 +43,6 @@ public class artistData {
         ArrayList<songData> objects = songData.songFileRead();
         Stack stack = new Stack();
         Scanner fileScanner = new Scanner(fileIn);
-        int i = 0;
 
         while(fileScanner.hasNextLine()) {
             String line = fileScanner.nextLine();
@@ -55,7 +54,6 @@ public class artistData {
                     userArtists.add(objects.get(p).getSongArtist());
                 }
             }
-            i++;
         }
 
         Random rand = new Random();

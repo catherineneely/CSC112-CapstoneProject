@@ -79,10 +79,22 @@ public class user {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter your preferred artist: ");
         this.artist = scanner.nextLine();
-        System.out.print("Enter your preferred genre: ");
+        System.out.print("Enter your preferred genre (to see the genre list, enter 'list'): ");
         this.genre = scanner.nextLine();
-        System.out.print("Enter your mood: ");
+        while (this.genre.equalsIgnoreCase("list")) {
+            genreData GD = new genreData();
+            GD.printGenres();
+            System.out.print("Enter your preferred genre (to see the genre list, enter 'list'): ");
+            this.genre = scanner.nextLine();
+        }
+        System.out.print("Enter your preferred mood (to see the mood list, enter 'list'): ");
         this.mood = scanner.nextLine();
+        while (this.mood.equalsIgnoreCase("list")) {
+            moodData MD = new moodData();
+            MD.printMoods();
+            System.out.print("Enter your preferred mood (to see the mood list, enter 'list'): ");
+            this.mood = scanner.nextLine();
+        }
         saveUserPreferences();
     }
 }

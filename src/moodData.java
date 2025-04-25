@@ -218,9 +218,7 @@ public class moodData {
                     return curr.data;
                 }
             }
-        } else {
-            System.out.println("There are no mood objects.");
-        }
+        } else {}
         return "No mood recommendation available";
     }
 }

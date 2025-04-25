@@ -97,7 +97,6 @@ public class genreData {
         ArrayList<songData> objects = songData.songFileRead();
         Stack stack = new Stack();
         Scanner fileScanner = new Scanner(file);
-        int i = 0;
 
         while(fileScanner.hasNextLine()) {
             String line = fileScanner.nextLine();
@@ -108,7 +107,6 @@ public class genreData {
                     stack.push(songSubgenre);
                 }
             }
-            i++;
         }
 
         Random rand = new Random();
