@@ -83,7 +83,20 @@ public class Capstone {
                     System.out.println("Unknown command.");
                 }
             } else if (option.equals("d")) {
-                // FILL IN CODE HERE !!!
+                System.out.println("Welcome to the PLAYLIST GENERATOR!");
+                System.out.print("Enter the number of genres you would like to use (max.28): ");
+                int numGenres = Integer.parseInt(scan.nextLine());
+                String userGenres = "";
+                System.out.print("Enter the names of the " + numGenres + " genres (to see the genre list, enter 'list'): ");
+                userGenres = scan.nextLine();
+                while (userGenres.equalsIgnoreCase("list")) {
+                    genreData GD = new genreData();
+                    GD.printGenres();
+                    System.out.print("Enter the names of the " + numGenres + " genres (to see the genre list, enter 'list'): ");
+                    userGenres = scan.nextLine();
+                }
+                ArrayList<songData> playlistSongs = playlistGen.generate(userGenres, numGenres);
+                playlistGen.printPlaylist(user, playlistSongs);
             } else if (option.equals("e")) {
                 ArrayList<songData> objects = songData.songFileRead();
                 System.out.print("What is the name of the song you would like to add to the database? ");
@@ -97,7 +110,6 @@ public class Capstone {
                     while (genre.equalsIgnoreCase("list")) {
                         genreData GD = new genreData();
                         GD.printGenres();
-
                         System.out.print("What is the genre of the song (to see the genre list, enter 'list')? ");
                         genre = scan.nextLine();
                     }
@@ -113,7 +125,6 @@ public class Capstone {
                     while (subgenre.equalsIgnoreCase("list")) {
                         genreData GD = new genreData();
                         GD.printSubgenres();
-
                         System.out.print("What is the subgenre of the song (to see the subgenre list, enter 'list')? ");
                         subgenre = scan.nextLine();
                     }
@@ -128,6 +139,7 @@ public class Capstone {
                 System.out.println("Unknown option. Please try again.");
             }
         }
+        scan.close();
     }
     public static String[] userArtists(Scanner scan) {
         System.out.print("How many artists would you like to use for the recommendation? ");
