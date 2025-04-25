@@ -74,7 +74,7 @@ public class genreData {
         }
         return subgenreList;
     }
-    // Prints the genres in three rows
+    // Prints the subgenres in three rows
     public void printSubgenres() {
         ArrayList<String> subgenres = collectSubgenres();
         System.out.println("These are the current subgenres in the database...");
@@ -91,7 +91,7 @@ public class genreData {
         }
         System.out.println();
     }
-    // Recommend a genre based on user's input genre preferences
+    // Recommends a genre based on user's input genre preferences
     public String getGenres() {
         FileInputStream file = null;
         try {
