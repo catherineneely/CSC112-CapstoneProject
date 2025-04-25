@@ -45,7 +45,6 @@ public class user {
         try {
             userFile = new FileInputStream(username + ".txt");
         } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
             return false;
         }
         Scanner fileScanner = new Scanner(userFile);
@@ -55,7 +54,6 @@ public class user {
             this.mood = fileScanner.nextLine();
             return true;
         } catch (NoSuchElementException e) {
-            System.out.println("File not found.");
             return false;
         }
     }
