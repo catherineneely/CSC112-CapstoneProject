@@ -3,6 +3,7 @@
 import java.io.*;
 import java.util.*;
 
+// Class for representing a user in the music recommendation system
 public class user {
 
     private String username;
@@ -10,12 +11,12 @@ public class user {
     private String genre;
     private String mood;
 
-    // constructor
+    // Parameterized constructor
     public user(String username) {
         this.username = username;
     }
 
-    // getter and setter methods
+    // Setter and getter methods
     public String getUsername() {
         return username;
     }
@@ -38,7 +39,7 @@ public class user {
         return mood;
     }
 
-    // sees if the user exists, then loads their preferences
+    // Sees if the user exists, then loads their preferences
     public boolean loadUserPreferences() {
         FileInputStream userFile = null;
         try {
@@ -58,7 +59,7 @@ public class user {
             return false;
         }
     }
-    // saves the user's preferences in their file
+    // Saves the user's preferences in their file
     public void saveUserPreferences() {
         PrintWriter writer = null;
         try {
@@ -74,7 +75,7 @@ public class user {
         writer.flush();
         writer.close();
     }
-    // lets the user enter their preferred artist, genre, and mood
+    // Lets the user enter their preferred artist, genre, and mood
     public void updateUserPreferences() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter your preferred artist: ");

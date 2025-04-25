@@ -2,7 +2,9 @@
 
 import java.io.*;
 
+// Class for saving arrays of user data (artists, genres, moods) to text files
 public class userData {
+    // Saves an array of user input artists to "userArtistData.txt"
     public static void UArtist (String[] userArtists) {
         FileOutputStream fileOut = null;
         try {
@@ -16,6 +18,7 @@ public class userData {
         pw.flush();
         pw.close();
     }
+     // Saves an array of user input genres to "userGenreData.txt"
     public static void UGenre (String[] userGenres) {
         FileOutputStream fileOut = null;
         try {
@@ -29,6 +32,7 @@ public class userData {
         pw.flush();
         pw.close();
     }
+    // Saves an array of user input moods to "userMoodData.txt"
     public static void UMood (String[] userMoods) {
         FileOutputStream fileOut = null;
         try {
@@ -42,8 +46,7 @@ public class userData {
         pw.flush();
         pw.close();
     }
-
-    // recursive method that writes a file with information depending on user input in the main
+    // Recursive method that writes a file with information depending on user input in the main
     public static void writeToFileRecursive(String[] data, int index, PrintWriter pw) {
         if (index == data.length) {
             return;

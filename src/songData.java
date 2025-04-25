@@ -3,6 +3,7 @@
 import java.io.*;
 import java.util.*;
 
+// Class for storing information about a song and reading, sorting, and writing song data
 public class songData {
 
     private String songGenre;
@@ -12,7 +13,7 @@ public class songData {
     private int songAlbumYear;
     private String songSubgenre;
 
-    // constructors
+    // Default constructor
     public songData() {
         this.songGenre = "";
         this.songArtist = "";
@@ -21,6 +22,7 @@ public class songData {
         this.songAlbumYear = 0;
         this.songSubgenre = "";
     }
+    // Parameterized constructor
     public songData(String SG, String SArt, String SAlb, String SN, int SAY, String SSG) {
         this.songGenre = SG;
         this.songArtist = SArt;
@@ -37,7 +39,7 @@ public class songData {
                 + songName + "/-/" + songAlbumYear + "/-/" + songSubgenre;
     }
 
-    // getter and setter methods
+    // Getter and setter methods
     public String getSongGenre() {
         return songGenre;
     }
@@ -75,6 +77,8 @@ public class songData {
         this.songSubgenre = songSubgenre;
     }
 
+    // Reads song data from the "spotify-data.csv" file, creates songData objects,
+    // stores them in a list, sorts them, and returns the list
     public static ArrayList<songData> songFileRead() {
         FileInputStream userFile = null;
         ArrayList<songData> objects = new ArrayList<>();
@@ -89,6 +93,7 @@ public class songData {
             String line = fileScan.nextLine();
             songData SD = new songData();
             String[] songInfo = line.split("/-/");
+            // Adds to the songData object with parsed values
             SD.setSongGenre(songInfo[0]);
             SD.setSongArtist(songInfo[1]);
             SD.setSongAlbum(songInfo[2]);
@@ -99,12 +104,14 @@ public class songData {
                 continue;
             }
             SD.setSongSubgenre(songInfo[5]);
-            objects.add(SD);
+            objects.add(SD);    // Adds the song to the ArrayList
         }
         fileScan.close();
+        // Sorts the songs alphabetically by song title
         songSort(objects, objects.size() - 1);
         return objects;
     }
+    // Sorts the list of songs using bubble sort and the songTitlesComparator
     public static void songSort(ArrayList<songData> objects, int n) {
         songTitlesComparator comparator = new songTitlesComparator();
         boolean sorted = false;
@@ -124,7 +131,7 @@ public class songData {
         objects.set(i, objects.get(i1));
         objects.set(i1, temp);
     }
-
+    // Adds a new song to both the spotify-data.csv file and the in-memory ArrayList
     public void addNewSong(songData SD, ArrayList<songData> objects){
         FileOutputStream fileOut = null;
         try {

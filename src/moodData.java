@@ -3,16 +3,20 @@
 import java.io.*;
 import java.util.*;
 
+// Class for handling user mood input and providing song recommendations based on the mood
 public class moodData {
     private String mood;
 
+    // Default constructor
     public moodData(){
         mood = "";
     }
+    // Parameterized constructor
     public moodData(String mood) {
         this.mood = mood;
     }
 
+    // Setter and getter methods
     public String getMood() {
         return mood;
     }
@@ -20,12 +24,13 @@ public class moodData {
         this.mood = mood;
     }
 
+    // Prints all available mood options to the user.
     public void printMoods(){
         System.out.println("The mood options are...\nmelancholy | bold | serene | euphoric | " +
                 "adventurous | romantic | reflective | confident | cinematic | upbeat | " +
                 "restless | hopeful | grounded");
     }
-
+    // Retrieves a song recommendation based on the user's mood
     public String getMoodRec() {
         FileInputStream fileRead = null;
         try {
@@ -38,9 +43,11 @@ public class moodData {
         ArrayList<songData> objects = songData.songFileRead();
         Stack stack = new Stack();
         Scanner fileScanner = new Scanner(fileRead);
+        // Reads the mood from the file
         while (fileScanner.hasNextLine()) {
             String line = fileScanner.nextLine();
             line = line.trim();
+            // Based on the mood, finds genres that fit and pushes matching artists
             if (line.equals("melancholy")) {
                     for (int p = 0; p < objects.size(); p++) {
                         if (objects.get(p).getSongGenre().equalsIgnoreCase("blues") ||
@@ -201,6 +208,7 @@ public class moodData {
                 poppedNode = stack.pop();
                 poppedMA = poppedNode.data;
             }
+            // Creates a list of songs by the selected artist
             LinkedList moodListRec = new LinkedList();
             for (int k = 0; k < objects.size(); k++) {
                 songData data = objects.get(k);
@@ -208,6 +216,7 @@ public class moodData {
                     moodListRec.add(data.getSongName() + " by " + data.getSongArtist());
                 }
             }
+            // Chooses a random song from the list
             if (moodListRec.size() > 0) {
                 int artistsCount = rand.nextInt(moodListRec.size());
                 Node curr = moodListRec.head;
@@ -215,7 +224,7 @@ public class moodData {
                     curr = curr.next;
                 }
                 if (curr != null) {
-                    return curr.data;
+                    return curr.data;   // Returns the recommendation
                 }
             }
         } else {}

@@ -1,18 +1,19 @@
 // Catherine Neely
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 
+// Main class containing the entire music recommendation system
 public class Capstone {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
+        // Prompts the user to enter their username, then creates a new user object with the username
         System.out.print("Enter your username: ");
         String username = scan.nextLine();
-
         user user = new user(username);
 
+        // Checks if user has existing preferences stored
         boolean returnUser = user.loadUserPreferences();
         if (returnUser) {
             System.out.println("You are logged in, " + username + "!");
@@ -25,8 +26,10 @@ public class Capstone {
             user.updateUserPreferences();
         }
 
+        // Main interaction loop
         String option = "";
         while (!option.equals("f")) {
+            // Menu options
             System.out.print("""
                     
                     What would you like to do""" + " " + username + "?" + """
@@ -41,15 +44,16 @@ public class Capstone {
                     ---→""" + " ");
             option = scan.nextLine().toLowerCase();
 
-            if (option.equals("a")) {
+            if (option.equals("a")) {           // Update user preferences
                 user.updateUserPreferences();
-            } else if (option.equals("b")) {
+            } else if (option.equals("b")) {    // Output recommendations based on user preferences
                 prefRecs(user);
-            } else if (option.equals("c")) {
+            } else if (option.equals("c")) {    // Music discovery
+                // Asks the user how they want to discover music
                 System.out.print("Would you like to use artists(a), genre(g), or mood(m) " +
                         "for music discovery? ");
                 String MD = scan.nextLine();
-                if (MD.equalsIgnoreCase("a")) {
+                if (MD.equalsIgnoreCase("a")) {         // Artist-based discovery
                     String[] UA = userArtists(scan);
                     userData.UArtist(UA);
                     artistData AD = new artistData();
@@ -59,7 +63,7 @@ public class Capstone {
                     } else {
                         System.out.println("Your recommended artist is " + recommArtist + ".");
                     }
-                } else if (MD.equalsIgnoreCase("g")) {
+                } else if (MD.equalsIgnoreCase("g")) {  // Genre-based discovery
                     String[] UG = userGenres(scan);
                     userData.UGenre(UG);
                     genreData GD = new genreData();
@@ -69,7 +73,7 @@ public class Capstone {
                     } else {
                         System.out.println("Your recommended genre is " + recommGenre + ".");
                     }
-                } else if (MD.equalsIgnoreCase("m")) {
+                } else if (MD.equalsIgnoreCase("m")) {  // Mood-based discovery
                     String[] UM = userMoods(scan);
                     userData.UMood(UM);
                     moodData MoD = new moodData();
@@ -82,7 +86,7 @@ public class Capstone {
                 } else {
                     System.out.println("Unknown command.");
                 }
-            } else if (option.equals("d")) {
+            } else if (option.equals("d")) {    // Playlist generator
                 System.out.println("Welcome to the PLAYLIST GENERATOR!");
                 System.out.print("Enter the number of genres you would like to use (max.28): ");
                 int numGenres = Integer.parseInt(scan.nextLine());
@@ -95,15 +99,16 @@ public class Capstone {
                     System.out.print("Enter the names of the " + numGenres + " genres (to see the genre list, enter 'list'): ");
                     userGenres = scan.nextLine();
                 }
+                // Generates playlist and prints it in a txt file
                 ArrayList<songData> playlistSongs = playlistGen.generate(userGenres, numGenres);
                 playlistGen.printPlaylist(user, playlistSongs);
-            } else if (option.equals("e")) {
+            } else if (option.equals("e")) {    // Add a new song to the database
                 ArrayList<songData> objects = songData.songFileRead();
                 System.out.print("What is the name of the song you would like to add to the database? ");
                 String name = scan.nextLine();
-                objects.sort(new songTitlesComparator());
                 int nameSearch = linearSearch(objects, 0, objects.size()-1, name);
                 if (nameSearch == -1) {
+                    // Gathers the remaining details of the song
                     String genre = "";
                     System.out.print("What is the genre of the song (to see the genre list, enter 'list')? ");
                     genre = scan.nextLine();
@@ -128,12 +133,13 @@ public class Capstone {
                         System.out.print("What is the subgenre of the song (to see the subgenre list, enter 'list')? ");
                         subgenre = scan.nextLine();
                     }
+                    // Creates and adds the new song to the database
                     songData SD = new songData(genre, artist, album, name, albumReleaseYear, subgenre);
                     SD.addNewSong(SD, objects);
                 } else {
                     System.out.println("Sorry, that song already exists in the database.");
                 }
-            } else if (option.equals("f")) {
+            } else if (option.equals("f")) {    // Exit the system
                 System.out.println("Goodbye " + username + "!");
             } else {
                 System.out.println("Unknown option. Please try again.");
@@ -141,6 +147,7 @@ public class Capstone {
         }
         scan.close();
     }
+    // Prompts user for artists and returns them as an array
     public static String[] userArtists(Scanner scan) {
         System.out.print("How many artists would you like to use for the recommendation? ");
         int NOA = Integer.parseInt(scan.nextLine());
@@ -152,6 +159,7 @@ public class Capstone {
         }
         return UA;
     }
+    // Prompts user for genres and returns them as an array
     public static String[] userGenres(Scanner scan) {
         System.out.print("How many genres would you like to use for the recommendation? ");
         int NOG = Integer.parseInt(scan.nextLine());
@@ -169,6 +177,7 @@ public class Capstone {
         }
         return UG;
     }
+    // Prompts user for a mood and returns it in an array
     public static String[] userMoods(Scanner scan) {
         moodData MD = new moodData();
         MD.printMoods();
@@ -177,6 +186,7 @@ public class Capstone {
         String[] UM = {moods};
         return UM;
     }
+    // The Linear search algorithm finds if a song name already exists
     public static int linearSearch(ArrayList<songData> Strings, int begin, int end, String target) {
         if (begin > end) {
             return -1;
@@ -189,6 +199,7 @@ public class Capstone {
         }
         return linearSearch(Strings, begin + 1, end - 1, target);
     }
+    // Generates recommendations based on the stored user preferences
     public static void prefRecs(user user) {
         FileInputStream prefFile = null;
         try {
@@ -198,18 +209,22 @@ public class Capstone {
             System.exit(1);
         }
 
+        // Loads all the songs
         songData songData = new songData();
         ArrayList<songData> songObjects = songData.songFileRead();
         Scanner fileScanner = new Scanner(prefFile);
         Stack stack = new Stack();
         ArrayList<String> userPref = new ArrayList<>();
 
+        // Reads the user preferences from the file
         while(fileScanner.hasNextLine()) {
             String line = fileScanner.nextLine();
             userPref.add(line);
         }
 
-        // artist rec
+        // Artist recommendation
+        // Find artists matching preferred artist, push their genres into stack
+        // Randomly recommends a similar artist from that genre
         ArrayList<String> userArtists = new ArrayList<>();
         for (int p = 0; p < songObjects.size(); p++) {
             if (userPref.getFirst().contains(songObjects.get(p).getSongArtist())) {
@@ -248,7 +263,8 @@ public class Capstone {
                         pg = singleArtist[0].trim();
                     }
                     if (!userArtists.contains(pg)) {
-                        System.out.println("Your recommended artist is " + pg + " for your preferred artist " + userPref.getFirst() + ".");
+                        System.out.println("Your recommended artist is " + pg +
+                                " for your preferred artist " + userPref.getFirst() + ".");
                     } else {
                         continue;
                     }
@@ -256,7 +272,9 @@ public class Capstone {
             }
         } else {}
 
-        // genre rec
+        // Genre recommendation
+        // Pushes the subgenres related to the preferred genre into a new stack
+        // Pops a random subgenre, finds the genre+subgenre combos and recommends one
         Stack stack2 = new Stack();
         for (int p = 0; p < songObjects.size(); p++) {
             if (userPref.get(1).contains(songObjects.get(p).getSongGenre())) {
@@ -293,7 +311,10 @@ public class Capstone {
             }
         } else {}
 
-        //mood rec
+        // Mood recommendation
+        // Each mood has a genre mapping, so artists from those genres are selected,
+        // then a random one is picked and used to find songs to recommend based on the mood
+        // Pushes matching artists to a stack, then randomly pops one and recommends a song
         Stack stack3 = new Stack();
         userPref.get(2).trim();
         if (userPref.get(2).equals("melancholy")) {

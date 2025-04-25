@@ -1,22 +1,25 @@
 // Catherine Neely
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 
+// Class for managing genres and subgenres
 public class genreData {
     private String genreName;
     private String subgenre;
 
+    // Default constructor
     public genreData() {
         genreName = "";
         subgenre = "";
     }
+    // Parameterized constructor
     public genreData(String genreName, String subgenre) {
         this.genreName = genreName;
         this.subgenre = subgenre;
     }
 
+    // Setter and getter methods
     public String getGenreName() {
         return genreName;
     }
@@ -30,6 +33,7 @@ public class genreData {
         this.subgenre = subgenre;
     }
 
+    // Collects all unique genres from the song data
     public ArrayList<String> collectGenres() {
         ArrayList<songData> objects = songData.songFileRead();
         ArrayList<String> genreList = new ArrayList<>();
@@ -43,6 +47,7 @@ public class genreData {
         }
         return genreList;
     }
+    // Prints the genres in two rows by dividing the list in half
     public void printGenres() {
         ArrayList<String> genres = collectGenres();
         System.out.println("These are the current genres in the database...");
@@ -55,7 +60,7 @@ public class genreData {
         }
         System.out.println();
     }
-
+    // Collects all unique subgenres from the song data
     public ArrayList<String> collectSubgenres() {
         ArrayList<songData> objects = songData.songFileRead();
         ArrayList<String> subgenreList = new ArrayList<>();
@@ -69,6 +74,7 @@ public class genreData {
         }
         return subgenreList;
     }
+    // Prints the genres in three rows
     public void printSubgenres() {
         ArrayList<String> subgenres = collectSubgenres();
         System.out.println("These are the current subgenres in the database...");
@@ -85,6 +91,7 @@ public class genreData {
         }
         System.out.println();
     }
+    // Recommend a genre based on user's input genre preferences
     public String getGenres() {
         FileInputStream file = null;
         try {
@@ -97,7 +104,7 @@ public class genreData {
         ArrayList<songData> objects = songData.songFileRead();
         Stack stack = new Stack();
         Scanner fileScanner = new Scanner(file);
-
+        // Reads the user genre preferences and pushes related subgenres onto stack
         while(fileScanner.hasNextLine()) {
             String line = fileScanner.nextLine();
             for (int p = 0; p < objects.size(); p++) {
@@ -108,7 +115,7 @@ public class genreData {
                 }
             }
         }
-
+        // Randomly pops a subgenre from the stack and find a genre from it
         Random rand = new Random();
         int ss = stack.stackSize();
         int popCount;
@@ -117,7 +124,6 @@ public class genreData {
             for (int j = 0; j < popCount; j++) {
                 Node poppedNode = stack.pop();
                 String poppedSubgenre = poppedNode.data;
-
                 LinkedList genreSubgenres = new LinkedList();
                 for (int k = 0; k < objects.size(); k++) {
                     songData data = objects.get(k);
@@ -125,6 +131,7 @@ public class genreData {
                         genreSubgenres.add(data.getSongGenre() + " " + data.getSongSubgenre());
                     }
                 }
+                // Returns a random genre-subgenre pair for recommendation
                 if (genreSubgenres.size() > 0) {
                     int artistsCount = rand.nextInt(genreSubgenres.size());
                     Node curr = genreSubgenres.head;
